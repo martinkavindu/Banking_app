@@ -1,5 +1,6 @@
 package mutuku.coke.bankingapp.controller;
 
+import jakarta.validation.Valid;
 import mutuku.coke.bankingapp.dto.AccountDto;
 import mutuku.coke.bankingapp.service.AccountService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class AccountController {
     }
     //add account restapi
     @PostMapping()
-    public ResponseEntity<AccountDto> addAccount(@RequestBody AccountDto accountDto){
+    public ResponseEntity<AccountDto> addAccount(@Valid @RequestBody AccountDto accountDto){
         return  new ResponseEntity<>(accountService.createAccount(accountDto), HttpStatus.CREATED);
     }
     //getaccountdetails
