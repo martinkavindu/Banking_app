@@ -47,6 +47,15 @@ public class AccountController {
         return ResponseEntity.ok(accountDto);
 
     }
+    @PostMapping("/transfer")
+    public ResponseEntity<String> internalTransfer(@RequestBody Map<String, Object> request) {
+        Long from = Long.valueOf(request.get("from").toString());
+        Long to = Long.valueOf(request.get("to").toString());
+        double amount = Double.parseDouble(request.get("amount").toString());
+
+        String result = accountService.internalTransfer(from, to, amount);
+        return ResponseEntity.ok(result);
+    }
 
     //getallaccounts
     @GetMapping
@@ -60,5 +69,6 @@ public class AccountController {
         accountService.deleteAccount(id);
         return ResponseEntity.ok("Account deleted");
     }
+
 
 }

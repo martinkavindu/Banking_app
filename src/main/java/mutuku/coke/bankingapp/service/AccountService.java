@@ -12,6 +12,7 @@ public interface AccountService {
     AccountDto withdrawal (Long id , double amount);
     List<AccountDto> getAccounts();
     void  deleteAccount(Long id);
+    String internalTransfer(Long fromId,Long toId,double amount);
 
 
 }
