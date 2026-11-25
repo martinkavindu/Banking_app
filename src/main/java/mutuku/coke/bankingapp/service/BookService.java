@@ -22,7 +22,7 @@ public class BookService {
                                       String formatName,
                                       int maxPrice) {
 
-        Specification<Book> spec = Specification.where(null);
+        Specification<Book> spec = null;
 
         if (categoryName != null) {
             spec = spec.and(BookSpecification.hasCategoryName(categoryName));

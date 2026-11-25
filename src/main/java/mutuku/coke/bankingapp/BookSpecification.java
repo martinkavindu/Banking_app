@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class BookSpecification {
 
+
     //category filter
 
     public static Specification<Book> hasCategoryName(String name) {
