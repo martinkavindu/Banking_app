@@ -7,6 +7,9 @@ import mutuku.coke.bankingapp.mapper.AccountMapper;
 import mutuku.coke.bankingapp.repository.AccountRepository;
 import mutuku.coke.bankingapp.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +32,11 @@ private AccountRepository accountRepository;
     }
 
     @Override
+    @Cacheable(value= "account" , key = "#id")
     public AccountDto getAccountById(Long id) {
+
+        System.out.println("Getting account from database...");
+
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account doesn't exist"));
 
@@ -37,6 +44,7 @@ private AccountRepository accountRepository;
     }
 
     @Override
+    @CachePut(value= "account" , key = "#id")
     public AccountDto deposit(Long id, double amount) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account doesn't exist"));
@@ -48,6 +56,7 @@ private AccountRepository accountRepository;
     }
 
     @Override
+    @CachePut(value= "account" , key = "#id")
     public AccountDto withdrawal(Long id, double amount) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account doesn't exist"));
@@ -71,6 +80,7 @@ private AccountRepository accountRepository;
     }
 
     @Override
+    @CacheEvict(value= "account" , key = "#id")
     public void deleteAccount(Long id) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account doesn't exist"));
